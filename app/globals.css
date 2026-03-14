@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tcwg-bg: #1e3010;
+  --tcwg-orange: #e8722a;
+  --tcwg-green: #6bcb77;
+  --font-orbitron: "Orbitron", monospace;
+  --font-share: "Share Tech Mono", monospace;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--tcwg-bg);
+}
