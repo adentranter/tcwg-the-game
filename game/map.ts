@@ -6,7 +6,11 @@ const GH = 17;
 
 const WALK = new Set<TileTypeId>([T.FL, T.WT, T.PW, T.EX, T.GP]);
 
+/** Zone: player can only walk in TECHBAY and UTILITY; DESK/BENCH are other techs' areas */
+export type ZoneId = "techbay" | "utility" | "desk" | "bench" | null;
+
 const MAP: TileTypeId[][] = [];
+const ZONE: ZoneId[][] = [];
 function fill(
   x1: number,
   y1: number,
@@ -17,11 +21,19 @@ function fill(
   for (let y = y1; y <= y2; y++)
     for (let x = x1; x <= x2; x++) MAP[y][x] = v;
 }
+function zoneFill(x1: number, y1: number, x2: number, y2: number, z: ZoneId): void {
+  for (let y = y1; y <= y2; y++)
+    for (let x = x1; x <= x2; x++) ZONE[y][x] = z;
+}
 
 // Initialize all outside
 for (let y = 0; y < GH; y++) {
   MAP[y] = [];
-  for (let x = 0; x < GW; x++) MAP[y][x] = T.OUT;
+  ZONE[y] = [];
+  for (let x = 0; x < GW; x++) {
+    MAP[y][x] = T.OUT;
+    ZONE[y][x] = null;
+  }
 }
 
 // Building shell
@@ -63,6 +75,22 @@ MAP[16][10] = T.EX;
 MAP[14][3] = T.DR;
 MAP[14][16] = T.DR;
 
+// Right-side metal bench (other techs' area)
+fill(15, 6, 15, 11, T.B2);
+
+// Assign zones: default interior = techbay; then desk (back-right), bench (right), utility (left)
+for (let y = 0; y < GH; y++) {
+  for (let x = 0; x < GW; x++) {
+    const cell = MAP[y][x];
+    if (cell !== T.OUT && cell !== T.WL && cell !== T.WIN && cell !== T.DR) {
+      ZONE[y][x] = "techbay";
+    }
+  }
+}
+zoneFill(12, 4, 15, 6, "desk");
+zoneFill(14, 6, 15, 11, "bench");
+zoneFill(4, 6, 5, 9, "utility");
+
 export const MAP_WIDTH = GW;
 export const MAP_HEIGHT = GH;
 
@@ -73,8 +101,18 @@ export function cellAt(x: number, y: number): TileTypeId {
   return MAP[iy][ix];
 }
 
+export function zoneAt(x: number, y: number): ZoneId {
+  const ix = Math.floor(x);
+  const iy = Math.floor(y);
+  if (ix < 0 || iy < 0 || ix >= GW || iy >= GH) return null;
+  return ZONE[iy][ix];
+}
+
+/** Player (techbay tech) can only walk in techbay and utility */
 export function canWalk(x: number, y: number): boolean {
-  return WALK.has(cellAt(x, y));
+  if (!WALK.has(cellAt(x, y))) return false;
+  const z = zoneAt(x, y);
+  return z === "techbay" || z === "utility";
 }
 
 export function getMap(): TileTypeId[][] {

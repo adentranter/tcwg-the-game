@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CanvasGame } from "./CanvasGame";
+import { ThreeGame } from "./ThreeGame";
 import { Hud } from "./Hud";
 import { ControlsBar } from "./ControlsBar";
 import { StartScreen } from "./StartScreen";
@@ -66,7 +66,7 @@ export function GameShell() {
               timeLeft={gameState?.timeLeft ?? 60}
             />
             <div className="flex-1 relative min-h-0">
-              <CanvasGame
+              <ThreeGame
                 playerName={playerName}
                 onGameOver={handleGameOver}
                 onStateChange={setGameState}
