@@ -17,7 +17,7 @@ export function GameOverScreen({ summary, onPlayAgain }: GameOverScreenProps) {
       transition={{ duration: 0.3 }}
     >
       <motion.div
-        className="font-[family-name:var(--font-orbitron)] text-3xl font-black text-[var(--tcwg-orange)] mb-1"
+        className="font-[family-name:var(--font-orbitron)] text-3xl font-black text-[var(--tcwg-red)] mb-1"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.1 }}
@@ -41,13 +41,13 @@ export function GameOverScreen({ summary, onPlayAgain }: GameOverScreenProps) {
         {"★".repeat(summary.avgStars)}
         {"☆".repeat(5 - summary.avgStars)}
       </motion.div>
-      <div className="font-[family-name:var(--font-orbitron)] text-[9px] text-[#2a2a2a] tracking-wider mb-5">
+      <div className="font-[family-name:var(--font-orbitron)] text-[9px] text-[#888] tracking-wider mb-5">
         CUSTOMER REVIEWS
       </div>
 
       <div className="w-[380px] max-h-[190px] overflow-y-auto mb-4 space-y-1">
         {summary.reviews.length === 0 ? (
-          <div className="text-[#2a2a2a] text-[10px] text-center py-3">
+          <div className="text-[#888] text-[10px] text-center py-3">
             No repairs completed.
           </div>
         ) : (
@@ -66,14 +66,14 @@ export function GameOverScreen({ summary, onPlayAgain }: GameOverScreenProps) {
                 {r.name[0]}
               </div>
               <div>
-                <div className="text-[9px] text-[#556] mb-0.5">
-                  {r.name} <span className="text-[#222] text-[7px]">#{r.ticket}</span>
+                <div className="text-[9px] text-[#ccd] mb-0.5">
+                  {r.name} <span className="text-[#777] text-[7px]">#{r.ticket}</span>
                 </div>
                 <div className="text-[8px] text-[#f0b429] mb-0.5">
                   {"★".repeat(r.stars)}
                   {"☆".repeat(5 - r.stars)}
                 </div>
-                <div className="text-[8px] text-[#2a2a2a] leading-snug">{r.text}</div>
+                <div className="text-[8px] text-[#999] leading-snug">{r.text}</div>
               </div>
             </motion.div>
           ))
@@ -81,7 +81,7 @@ export function GameOverScreen({ summary, onPlayAgain }: GameOverScreenProps) {
       </div>
 
       <motion.button
-        className="font-[family-name:var(--font-orbitron)] text-xs font-bold tracking-wider border border-[var(--tcwg-orange)] text-[var(--tcwg-orange)] px-10 py-3 cursor-pointer transition-colors hover:bg-[var(--tcwg-orange)]/10"
+        className="font-[family-name:var(--font-orbitron)] text-xs font-bold tracking-wider border border-[var(--tcwg-red)] text-[var(--tcwg-red)] px-10 py-3 cursor-pointer transition-colors hover:bg-[var(--tcwg-red)]/10"
         onClick={onPlayAgain}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

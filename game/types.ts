@@ -31,7 +31,12 @@ export type CustomerState =
   | "waiting"
   | "pw_waiting_pc"
   | "pw_waiting"
-  | "repairing";
+  | "repairing"
+  | "leaving";
+
+export type RepairDifficulty = "easy" | "normal" | "hard";
+
+export type PcIssue = "virus" | "bad HDD" | "overheating" | "corrupted OS";
 
 export interface Customer {
   id: number;
@@ -46,7 +51,18 @@ export interface Customer {
   waitStart: number;
   repairTime: number;
   animT: number;
+  /** Animated world position — walks toward `slot` (or the exit door when leaving) */
+  px: number;
+  py: number;
+  /** Remaining tile-space waypoints to pass through before heading for `slot` (e.g. walking in from a parked car) */
+  route?: { x: number; y: number }[];
   benchState?: "repairing" | "done";
+  repProgress?: number;
+  /** Fixed workbench grid slot (0–21) so PCs don't reshuffle when others are added/removed */
+  benchSlot?: number;
+  repairDifficulty?: RepairDifficulty;
+  repairBonus?: number;
+  pcIssue?: PcIssue;
 }
 
 export interface Player {
@@ -70,12 +86,35 @@ export interface GameOverSummary {
   playerName: string;
 }
 
+export type CarState = "incoming" | "parked" | "unloading" | "leaving";
+
+export interface ParkedCar {
+  id: number;
+  bay: number; // 0 | 1 | 2, index into ShopFront's 3 bay slots
+  state: CarState;
+  progress: number; // 0..1 drive-in/drive-out animation progress (only meaningful during "incoming"/"leaving")
+  vehicleIndex: number; // pick which GLB to render, cycle through a small set
+  passengersLeft: number; // customers still to spawn from this car
+}
+
+export type TutorialStep =
+  | "find_customer"
+  | "bring_to_bench"
+  | "watch_repair"
+  | "grab_ready"
+  | "return_to_customer";
+
 export interface GamePublicState {
   score: number;
   timeLeft: number;
   carried: Customer | null;
+  bench: Customer[];
   customers: Customer[];
   repairProgress: number;
   isRepairing: boolean;
   hint: { message: string; color: string } | null;
+  glitchRequest: number;
+  cars: ParkedCar[];
+  tutorialStep: TutorialStep | null;
+  tutorialTarget: { x: number; y: number } | null;
 }

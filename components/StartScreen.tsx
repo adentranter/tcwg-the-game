@@ -18,7 +18,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
       animate={{ opacity: 1 }}
     >
       <motion.div
-        className="font-[family-name:var(--font-orbitron)] text-4xl font-black text-[var(--tcwg-orange)] tracking-wider mb-0.5 drop-shadow-[0_0_36px_rgba(232,114,42,0.33)]"
+        className="font-[family-name:var(--font-orbitron)] text-4xl font-black text-[var(--tcwg-red)] tracking-wider mb-0.5 drop-shadow-[0_0_36px_rgba(216,56,44,0.4)]"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -26,7 +26,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
         TCWG
       </motion.div>
       <motion.div
-        className="font-[family-name:var(--font-orbitron)] text-[9px] text-[#2a2a2a] tracking-[0.35em] mb-9"
+        className="font-[family-name:var(--font-orbitron)] text-[9px] text-[#8a8a8a] tracking-[0.35em] mb-9"
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.1 }}
@@ -43,7 +43,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
         transition={{ delay: 0.2 }}
       >
         <input
-          className="bg-[#0c0c0c] border border-[#1e1e1e] text-[var(--tcwg-orange)] font-[family-name:var(--font-share)] text-sm px-3 py-2 outline-none w-[170px] uppercase"
+          className="bg-[#0c0c0c] border border-[#1e1e1e] text-[var(--tcwg-red)] font-[family-name:var(--font-share)] text-sm px-3 py-2 outline-none w-[170px] uppercase"
           type="text"
           maxLength={10}
           placeholder="YOUR NAME"
@@ -51,21 +51,21 @@ export function StartScreen({ onStart }: StartScreenProps) {
           onChange={(e) => setName(e.target.value)}
         />
         <button
-          className="font-[family-name:var(--font-orbitron)] text-xs font-bold tracking-wider border border-[var(--tcwg-orange)] text-[var(--tcwg-orange)] px-10 py-3 cursor-pointer transition-colors hover:bg-[var(--tcwg-orange)]/10"
+          className="font-[family-name:var(--font-orbitron)] text-xs font-bold tracking-wider border border-[var(--tcwg-red)] text-[var(--tcwg-red)] px-10 py-3 cursor-pointer transition-colors hover:bg-[var(--tcwg-red)]/10"
           onClick={() => onStart(name)}
         >
           START
         </button>
       </motion.div>
 
-      <div className="text-[9px] text-[#252525] text-center leading-relaxed max-w-md">
-        <b className="text-[#444]">①</b> Walk to orange counter · SPACE to take PC
+      <div className="text-[9px] text-[#7a7a7a] text-center leading-relaxed max-w-md">
+        <b className="text-[#aaa]">①</b> Walk to orange counter · SPACE to take PC
         <br />
-        <b className="text-[#444]">②</b> Carry to workbench · hold SPACE to repair (0.1–0.9s)
+        <b className="text-[#aaa]">②</b> Carry to workbench · SPACE to place · auto-repairs
         <br />
-        <b className="text-[#444]">③</b> Walk to customer on right side · auto hand back
+        <b className="text-[#aaa]">③</b> SPACE to pick up · walk to customer on right to return
         <br />
-        Each job earns $80–$320
+        Queue more PCs — other techs help. Each job earns $80–$320
       </div>
     </motion.div>
   );

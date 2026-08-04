@@ -1,28 +1,31 @@
 # TCWG — The Game
 
-A Next.js repair-shop game with a Pokémon-style top-down room, leaderboard (SQLite or Supabase), and animated UI.
+A short arcade shift sim for **The Computer Workshop Group**. You are a tech in a repair shop: take PCs from customers, place them on the workbench (auto-repair — queue more for help from other techs), return them, beat the 60s timer, and chase the leaderboard.
 
 ## Run locally
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Use **WASD** or **arrow keys** to move, **SPACE** to pick up/place at the orange counter and at the workbench (hold to repair), then walk to the customer on the right to return the PC.
+Open [http://localhost:3000](http://localhost:3000).
+
+**Controls:** **WASD** / **arrows** to move · **SPACE** to take a PC at the orange counter, place it on the workbench, or pick up a finished job · walk to the customer on the green/right side to return it. Repairs run automatically on the bench.
 
 ## Production build
 
 ```bash
-npm run build
-npm start
+pnpm run build
+pnpm start
 ```
 
-**Note:** With Next.js 15.x you may see a prerender error for the built-in 404 page. The app runs correctly with `npm run dev`. If the build fails, try upgrading Next.js (`npm install next@latest`) or run in development mode.
+**Note:** The build script forces `NODE_ENV=production`. If your shell exports `NODE_ENV=development`, Next 15 can fail prerendering `/404` with a misleading `<Html>` import error.
 
 ## Leaderboard
 
-- **Default:** Scores are stored in a local SQLite file at `./data/leaderboard.sqlite` (created on first use). No env vars needed.
+- **Development:** Scores stay in memory for the process lifetime (avoids native `better-sqlite3` friction during local work). They reset when you restart the dev server.
+- **Production default:** Local SQLite at `./data/leaderboard.sqlite` (created on first use). No env vars needed.
 - **Supabase:** Set in `.env.local`:
   - `LEADERBOARD_BACKEND=supabase`
   - `NEXT_PUBLIC_SUPABASE_URL=...`
@@ -34,5 +37,7 @@ The API and UI are unchanged when switching backends.
 ## Stack
 
 - Next.js (App Router), TypeScript, Tailwind CSS, Framer Motion
-- Game: canvas + top-down tile grid; logic in `game/engine.ts`, drawing in `game/draw.ts`
-- Leaderboard: adapter in `lib/leaderboard/` (SQLite + optional Supabase)
+- Game view: React Three Fiber + Drei + Three.js (isometric orthographic shop)
+- Logic in `game/engine.ts` and tile map in `game/map.ts`
+- Leaderboard adapter in `lib/leaderboard/` (memory in dev, SQLite or Supabase otherwise)
+- Kenney CC0 décor GLBs under `public/models/` (floors/walls stay procedural)

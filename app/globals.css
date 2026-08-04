@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 :root {
-  --tcwg-bg: #1e3010;
-  --tcwg-orange: #e8722a;
+  --tcwg-bg: #0a0a0a;
+  --tcwg-red: #d8382c;
   --tcwg-green: #6bcb77;
   --font-orbitron: "Orbitron", monospace;
   --font-share: "Share Tech Mono", monospace;
