@@ -199,27 +199,27 @@ const WALL_Y = WALL_H / 2;
 /** Wall-mounted fixtures sit near the top edge of the knee-wall, not dead-center */
 const FIXTURE_Y = WALL_H * 0.85;
 
-/** NPC techs in desk zone (17–22, 3–6) and side-bench zone (19–21, 8–11) */
+/** NPC techs in the L-shaped desk zone (3–8, 5–10), on the left of the shop */
 const NPC_POSITIONS: { x: number; y: number }[] = [
-  { x: 18.5, y: 4.5 },
-  { x: 19.5, y: 5.2 },
-  { x: 20.5, y: 4.8 },
-  { x: 19.5, y: 9 },
-  { x: 20.2, y: 10.5 },
+  { x: 4.6, y: 5.5 },
+  { x: 4.6, y: 7.2 },
+  { x: 4.6, y: 9 },
+  { x: 6.5, y: 10.6 },
+  { x: 8, y: 10.6 },
 ];
 
-/** Main workbench B1 is fill(10,4,13,7) → centre tile (11.5, 5.5) */
+/** Central workbench island B1 is fill(9,8,16,10) → centre tile (12.5, 9) */
 const B1_CENTER_WORLD: [number, number, number] = [
-  (11.5 - MAP_WIDTH / 2) * TILE_SIZE,
+  (12.5 - MAP_WIDTH / 2) * TILE_SIZE,
   0.5,
-  (5.5 - MAP_HEIGHT / 2) * TILE_SIZE,
+  (9 - MAP_HEIGHT / 2) * TILE_SIZE,
 ];
 
-/** 6×4 grid covering the 4×4 workbench — slots stay put when PCs are added/removed */
-const BENCH_COLS = 6;
+/** 7×4 grid covering the 8×3 central island — slots stay put when PCs are added/removed */
+const BENCH_COLS = 7;
 const BENCH_ROWS = 4;
-const BENCH_SLOT_X = 0.58;
-const BENCH_SLOT_Z = 0.72;
+const BENCH_SLOT_X = 0.95;
+const BENCH_SLOT_Z = 0.55;
 const BAR_WIDTH = 0.5;
 const BAR_HEIGHT = 0.09;
 

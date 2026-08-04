@@ -115,7 +115,7 @@ let carSpawnCD: number;
 let nextCarId: number;
 const VEHICLES_PER_CAR = 5;
 const MAX_LIVE_CUSTOMERS = 14;
-const BENCH_CENTER = { x: 11.5, y: 5.5 };
+const BENCH_CENTER = { x: 12.5, y: 9 };
 
 let tutorialActive: boolean;
 

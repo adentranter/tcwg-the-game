@@ -35,34 +35,43 @@ for (let y = 0; y < GH; y++) {
 fill(2, 2, 23, 16, T.WL);    // outer walls (top y=2, bottom y=16, sides x=2/23)
 fill(3, 3, 22, 15, T.FL);    // interior floor
 
-// ── Back bench row (B2) ───────────────────────────────────────────────────────
-fill(3, 3, 22, 3, T.B2);     // full-width back bench along top wall
+// Real-world floor plan (blueprint): entrance at the front (south, high y),
+// a substantial service counter just behind it, an open main workshop floor
+// with a central island bench, an L-shaped desk/workstation on the left, and
+// a long workbench along the rear wall (north, low y) with a small bench
+// projecting inward from its centre.
 
-// ── Main workbench (B1) – centred in tech space ───────────────────────────────
-fill(10, 4, 13, 7, T.B1);    // 4-wide × 4-tall workbench
-fill(10, 8, 13, 8, T.GP);    // walkable gap at bench base (approach from south)
+// ── Rear workbench row (B2) — full width along the rear wall ─────────────────
+fill(3, 3, 22, 3, T.B2);
 
-// ── Sink / utility corner ─────────────────────────────────────────────────────
-MAP[5][3] = T.SK;
-MAP[6][3] = T.SK;
+// ── Small bench projecting inward from the rear bench, roughly centred ───────
+fill(12, 4, 13, 4, T.B2);
 
-// ── Diagnostic rack ───────────────────────────────────────────────────────────
+// ── L-shaped desk / workstation area (left side) ──────────────────────────────
+fill(3, 5, 4, 10, T.B2);     // vertical arm, against the left wall
+fill(5, 9, 8, 10, T.B2);     // horizontal arm, turning into the room
+
+// ── Central rectangular workbench/island — through the middle of the room ────
+fill(9, 8, 16, 10, T.B1);    // 8-wide × 3-tall island, centred on the room
+
+// ── Sink / utility corner (left wall, below the L-desk) ───────────────────────
+MAP[12][3] = T.SK;
+MAP[13][3] = T.SK;
+
+// ── Diagnostic rack (right wall) ──────────────────────────────────────────────
 MAP[4][21] = T.DG;
 MAP[5][21] = T.DG;
 MAP[6][21] = T.DG;
 
-// ── NPC side-bench (other techs' area, right wall) ────────────────────────────
-fill(20, 8, 21, 11, T.B2);
+// ── Customer/service counter — one substantial rectangular desk near the
+//    entrance, split functionally into a drop-off (orange) and pickup
+//    (green) half but reading as a single continuous service desk ───────────
+fill(9, 12, 13, 13, T.DO);   // drop-off half
+fill(14, 12, 18, 13, T.PU);  // pickup half
 
-// ── Drop-off counter (orange) ─────────────────────────────────────────────────
-fill(3, 13, 11, 13, T.DO);
-
-// ── Pickup counter (green) ────────────────────────────────────────────────────
-fill(13, 13, 22, 13, T.PU);
-
-// ── Customer waiting zones ────────────────────────────────────────────────────
-fill(3, 14, 11, 15, T.WT);   // drop-off wait (left)
-fill(13, 14, 22, 15, T.PW);  // pickup wait (right)
+// ── Customer waiting zones, directly in front of the counter ─────────────────
+fill(9, 14, 13, 15, T.WT);   // drop-off wait (left half)
+fill(14, 14, 18, 15, T.PW);  // pickup wait (right half)
 
 // ── Exit ─────────────────────────────────────────────────────────────────────
 MAP[16][11] = T.EX;           // through bottom wall
@@ -95,10 +104,9 @@ for (let y = 0; y < GH; y++) {
   }
 }
 // NPC-only areas (player blocked)
-zoneFill(17, 3, 22, 6, "desk");    // back-right desk
-zoneFill(19, 8, 21, 11, "bench");  // right-side NPC bench
+zoneFill(3, 5, 8, 10, "desk");    // L-shaped desk/workstation area (left)
 // Utility area (player can enter)
-zoneFill(3, 4, 5, 9, "utility");
+zoneFill(3, 11, 5, 13, "utility"); // sink corner, below the L-desk
 
 // ── Exports ───────────────────────────────────────────────────────────────────
 export const MAP_WIDTH = GW;
